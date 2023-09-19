@@ -1,0 +1,41 @@
+{
+  "name": "test_app_test",
+  "version": "5.8.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "publish": "electron-builder --win --publish always",
+    "startnod": "nodemon"
+  },
+  "repository": "https://github.com/drackxus/elect_up",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
+  "build": {
+    "appId": "com.coderjeet.autoupdatetestr",
+    "productName": "Autoupdater app",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^26.2.1",
+    "electron-builder": "^24.6.4",
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "electron-online": "^1.0.0",
+    "electron-updater": "^6.1.4",
+    "is-online": "^10.0.0"
+  }
+}

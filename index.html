@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Claro RPA</title>
+    <style>
+        /* styles.css */
+
+        /* Estilos generales para el cuerpo de la aplicación */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos para el contenedor principal de la ventana */
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            /* Hace que la ventana ocupe toda la altura disponible */
+            padding: 10px;
+            padding-bottom: 100px;
+        }
+
+        /* Estilos para el contenido principal de la ventana */
+        .main-content {
+            flex: 1;
+            padding: 14px;
+        }
+
+        /* Estilos para el footer */
+        footer {
+            background-color: #333;
+            /* Color de fondo similar al de Visual Studio Code */
+            color: #fff;
+            /* Color de texto en el footer */
+            padding: 10px 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            /* Ancla el footer en la parte inferior de la ventana */
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 97%;
+        }
+
+        /* Estilos para el enlace en el footer */
+        footer a {
+            color: #61dafb;
+            /* Color de enlace similar al de Visual Studio Code */
+            text-decoration: none;
+        }
+
+        footer p {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        /* Estilos para el enlace en el hover */
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .shortcut {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 10px;
+            padding: 10px;
+            background-color: #ffffff;
+            border: 1px solid #c1c1c1;
+            border-radius: 5px;
+            width: 180px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .shortcut:hover {
+            background-color: #e0e0e0;
+        }
+
+        .shortcut-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .shortcut img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .shortcut span {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="main-content">
+            <h1>Hola, <span id="user_pc"></span>!</h1>
+            <h3>Lista de aplicativos disponibles</h3>
+            <div class="shortcut" url="https://google.com">
+                <div class="shortcut-icon">
+                    <img src="google-icon.png" alt="Google">
+                </div>
+                <span>Google</span>
+            </div>
+            <div class="shortcut" url="https://youtube.com">
+                <div class="shortcut-icon">
+                    <img src="youtube-icon.png" alt="YouTube">
+                </div>
+                <span>YouTube</span>
+            </div>
+            <div class="shortcut" url="https://gmail.com">
+                <div class="shortcut-icon">
+                    <img src="google-icon.png" alt="Gmail">
+                </div>
+                <span>Gmail</span>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Estado de la conexión: <span id="connection-status">Verificando...</span></p>
+        <p>Versión: <span id="app-version"></span></p>
+    </footer>
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        // Escuchar el evento 'set-version' y mostrar la versión en el footer
+        ipcRenderer.on('set-version', (event, version) => {
+            console.log('set-version:', version);
+            document.getElementById('app-version').textContent = version;
+        });
+        ipcRenderer.on('set-userpc', (event, user_pc) => {
+            console.log('set-userpc:', user_pc);
+            document.getElementById('user_pc').textContent = user_pc;
+        });
+
+        const shortcutDivs = document.querySelectorAll('.shortcut');
+        console.log(shortcutDivs);
+
+        shortcutDivs.forEach((div) => {
+            div.addEventListener('click', () => {
+                // Obtener el valor del atributo "url" del div actual
+                const url = div.getAttribute('url');
+
+                // Enviar la URL al proceso principal para abrir una nueva ventana
+                ipcRenderer.send('openNewWindow', url);
+            });
+        });
+    </script>
+    <script src="renderer.js"></script>
+
+</body>
+
+</html>

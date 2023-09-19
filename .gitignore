@@ -1,0 +1,34 @@
+# Directorios y archivos generados automáticamente
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Archivos de construcción
+build/
+dist/
+out/
+
+# Archivos de configuración locales (pueden variar según tus herramientas)
+.env
+.env.local
+.env.*.local
+
+# Dependencias locales (puedes ajustar esta lista según tus necesidades)
+# /node_modules/
+
+# Logs y archivos temporales
+*.log
+*.tmp
+*.swp
+
+# Archivos de usuario y configuración específica de IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Dependencias globales de Yarn (opcional; úsalo si lo necesitas)
+# /.yarn/

@@ -1,0 +1,6 @@
+{
+  "watch": ["main.js", "app/**/*.js", "index.html"],
+  "ext": "js html",
+  "ignore": [],
+  "exec": "electron ."
+}

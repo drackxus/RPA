@@ -1,0 +1,9 @@
+appId: com.test.myapp
+productName: My test app test
+directories:
+  output: "./dist"
+win:
+  target: ["nsis"]
+publish:
+  provider: github
+  token: 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
